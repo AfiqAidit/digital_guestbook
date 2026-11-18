@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
+import { SoundButton } from "@/components/SoundButton";
 import { useI18n } from "@/lib/i18n";
 
 export function PageHeader({
@@ -29,6 +30,7 @@ export function PageHeader({
         {title}
       </h1>
       {right}
+      <SoundButton />
     </header>
   );
 }

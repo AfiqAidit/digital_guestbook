@@ -6,6 +6,7 @@ import type { PublicSettings } from "@/lib/types";
 import { GuestProvider } from "@/lib/guest";
 import { StaffProvider } from "@/lib/staff";
 import { SettingsProvider } from "@/lib/settings";
+import { MusicProvider } from "@/lib/music";
 import { StaffSheet } from "@/components/StaffSheet";
 import { AdminFab } from "@/components/AdminFab";
 
@@ -23,9 +24,11 @@ export function Providers({
       <GuestProvider>
         <StaffProvider>
           <SettingsProvider initial={initialSettings}>
-            {children}
-            <StaffSheet />
-            <AdminFab />
+            <MusicProvider>
+              {children}
+              <StaffSheet />
+              <AdminFab />
+            </MusicProvider>
           </SettingsProvider>
         </StaffProvider>
       </GuestProvider>
