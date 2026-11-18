@@ -3,7 +3,9 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowRight } from "lucide-react";
+import { Couple } from "@/components/Couple";
 import { LanguageToggle } from "@/components/LanguageToggle";
+import { SoundButton } from "@/components/SoundButton";
 import { Monogram } from "@/components/Monogram";
 import { LeafDivider, Sprig } from "@/components/Sprig";
 import { EVENT, formatWeddingDate } from "@/lib/event";
@@ -39,8 +41,9 @@ export default function Welcome() {
 
   return (
     <main className="flex min-h-dvh flex-col">
-      <div className="pt-safe flex justify-end px-4 pb-2">
+      <div className="pt-safe flex items-center justify-end gap-2 px-4 pb-2">
         <LanguageToggle />
+        <SoundButton />
       </div>
 
       {/* The arch: the couple's photo in a frosted frame. Until a photo is uploaded, a forest arch with the monogram. */}
@@ -62,14 +65,15 @@ export default function Welcome() {
           </>
         ) : (
           <div className="relative flex aspect-[4/4.7] items-center justify-center overflow-hidden rounded-t-[999px] rounded-b-[1.6rem] bg-forest">
-            <Sprig className="pointer-events-none absolute -bottom-3 -left-5 w-28 rotate-[8deg] text-sage/60" />
+            <Sprig className="pointer-events-none absolute -bottom-3 -left-5 w-28 rotate-[8deg] text-sage/40" />
             <Sprig
               flip
-              className="pointer-events-none absolute -right-5 -bottom-4 w-24 -rotate-[10deg] text-sage/45"
+              className="pointer-events-none absolute -right-5 -bottom-4 w-24 -rotate-[10deg] text-sage/30"
             />
-            <div className="relative mt-6">
-              <Monogram size={96} tone="paper" />
+            <div className="absolute top-[9%] left-1/2 -translate-x-1/2 rounded-full bg-paper p-0.5 shadow-md">
+              <Monogram size={44} tone="paper" />
             </div>
+            <Couple className="pointer-events-none absolute bottom-1 left-1/2 w-[80%] -translate-x-1/2" />
           </div>
         )}
       </section>

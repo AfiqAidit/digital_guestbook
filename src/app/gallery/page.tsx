@@ -129,7 +129,7 @@ export default function GalleryPage() {
     photos.forEach((p, i) => {
       const target = heights[0] <= heights[1] ? 0 : 1;
       cols[target].push({ p, i });
-      heights[target] += p.height / p.width + 0.18; // + room for the caption strip
+      heights[target] += p.height / p.width + (p.caption ? 0.4 : 0.18); // + room for the caption strip
     });
     return cols;
   }, [photos]);
@@ -253,7 +253,10 @@ function Tile({
             className={`h-full w-full object-cover transition-opacity duration-500 ${loaded ? "opacity-100" : "opacity-0"}`}
           />
         </span>
-        <span className="block truncate px-1 pt-1.5 pb-0.5 font-display text-[0.98rem] leading-tight font-medium text-forest italic">
+        {photo.caption && (
+          <span className="line-clamp-2 px-1 pt-1.5 text-[0.92rem] leading-snug break-words text-ink">{photo.caption}</span>
+        )}
+        <span className="block truncate px-1 pt-1 pb-0.5 font-display text-[0.98rem] leading-tight font-medium text-forest italic">
           {photo.guestName}
         </span>
       </button>
