@@ -20,7 +20,7 @@ Guests scan a QR code at the venue, open a website in their phone browser (no ap
 - Must run on **free tiers** (see `docs/02-architecture.md` for limits and math).
 - Must be dead simple for older guests (grandparents / "aunty test").
 - Must **not look like generic AI-generated UI** (see `docs/03-design.md` — this is a first-class requirement, not polish).
-- Theme: **forest green base with burgundy `#800020` accent**, restrained, not overwhelming.
+- Theme: **burgundy `#800020` on blush paper**, with animated blossoms as the backdrop (decision D34). Restrained, not overwhelming.
 - Languages: **English + Bahasa Melayu**.
 - **No guest passcode.** The gallery is open to anyone with the link/QR (protected by hybrid moderation instead).
 - **Staff access = hidden 5-tap + passcode, no accounts.** Tapping the logo 5 times opens a "staff access" popup (passcode + remark). Validated **server-side** against env-var passcodes; no email/password, no Supabase Auth. See `docs/02-architecture.md` → "Staff access".
@@ -37,7 +37,7 @@ Guests scan a QR code at the venue, open a website in their phone browser (no ap
 
 ## Status
 
-**Local MVP is built and working** (guest flow, staff access, moderation, Salam Kaut section, EN/BM). **Design base is glassmorphism level A** over a painted forest backdrop (see `docs/03-design.md` and decision D28); the home screen has a stats strip and a floating bottom nav; the welcome screen shows an optional couple photo (super admin uploads it); guests can add a **Look + Frame** (incl. torn-paper caption) before posting. It runs on a **local file store** (`.data/`) with no accounts. **Not yet done:** Supabase driver, deployment, ZIP export, disposable-camera mode, keep-alive cron. See the checklist at the top of `docs/04-roadmap.md`. **Update it whenever you finish a task.** Add new decisions to `docs/05-decisions.md`.
+**Local MVP is built and working** (guest flow, staff access, moderation, Salam Kaut section, EN/BM). **Design base is glassmorphism level A** over a blush backdrop with gently animated blossoms (burgundy theme, D34) (see `docs/03-design.md` and decision D28); the home screen has the couple illustration, a Latest moments strip led by Add yours (no stats, no bottom nav); the welcome screen shows an optional couple photo (super admin uploads it); guests can add a **Look + Frame** (incl. torn-paper caption) before posting. It runs on a **local file store** (`.data/`) with no accounts. **Not yet done:** Supabase driver, deployment, ZIP export, disposable-camera mode, keep-alive cron. See the checklist at the top of `docs/04-roadmap.md`. **Update it whenever you finish a task.** Add new decisions to `docs/05-decisions.md`.
 
 ## Running locally
 
@@ -68,7 +68,8 @@ The installed Next.js (see `package.json`, 16.x) is newer than most models' trai
 | `src/app/api/**` | Route handlers (public: photos, wishes, settings, files; staff: `admin/*`) |
 | `src/components/Monogram.tsx` | The A&P logo **and the hidden 5-tap staff trigger** |
 | `src/app/globals.css` | Design tokens (`@theme`), backdrop (`.app-backdrop`), paper grain, `.glass` / `.glass-strong`, `.btn` / `.field` / `.print` classes |
-| `public/art/forest-backdrop.jpg` | The painted backdrop (replaceable) |
+| `src/lib/music.tsx`, `src/components/SoundButton.tsx` | Optional music (file at `public/audio/theme.mp3`, not in the repo, off by default) and its speaker button |
+| `src/components/Florals.tsx`, `Petals.tsx`, `Couple.tsx` | Animated blossom backdrop, drifting petals (Home only), and the drawn couple (all SVG/CSS, no image files) |
 
 ## Working rules for agents
 
