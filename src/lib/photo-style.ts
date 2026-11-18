@@ -23,8 +23,8 @@ export const isDefaultStyle = (s: PhotoStyle) => s.look === "original" && s.fram
 const NAMES = "Afiq & Putri";
 const DATE = `${String(EVENT.day).padStart(2, "0")}.${String(EVENT.month).padStart(2, "0")}.${EVENT.year}`;
 
-const PAPER = "#f6f1e4";
-const FOREST = "#2c4636";
+const PAPER = "#f9f2ea";
+const FOREST = "#5e0018";
 const WINE = "#800020";
 
 /* ------------------------------ looks ------------------------------ */

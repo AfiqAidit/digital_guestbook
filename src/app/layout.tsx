@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
-import { cookies, headers } from "next/headers";
+import { cookies } from "next/headers";
 import { Caveat, Cormorant_Garamond, Instrument_Sans } from "next/font/google";
+import { Florals } from "@/components/Florals";
 import { Providers } from "@/components/Providers";
 import type { Lang } from "@/lib/i18n/dictionary";
 import { EVENT } from "@/lib/event";
@@ -35,14 +36,13 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#2c4636",
+  themeColor: "#800020",
 };
 
 async function pickLang(): Promise<Lang> {
+  // English unless the guest chose Bahasa Melayu before (we do not guess from the browser language).
   const saved = (await cookies()).get("gb_lang")?.value;
-  if (saved === "en" || saved === "ms") return saved;
-  const accept = ((await headers()).get("accept-language") ?? "").split(",")[0]?.trim().toLowerCase();
-  return accept?.startsWith("ms") ? "ms" : "en";
+  return saved === "ms" ? "ms" : "en";
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
@@ -53,7 +53,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body>
         <Providers initialLang={lang} initialSettings={initialSettings}>
           <div className="app-shell">
-            <div className="app-backdrop" aria-hidden />
+            <div className="app-backdrop" aria-hidden>
+              <Florals />
+            </div>
             {children}
           </div>
         </Providers>

@@ -43,5 +43,8 @@ next-env.d.ts
 # local dev data store (photos + db.json)
 /.data/
 
+# optional licensed theme music (not shipped; see D36)
+/public/audio/
+
 # keep the example env file
 !.env.example

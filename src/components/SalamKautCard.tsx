@@ -36,7 +36,7 @@ export function SalamKautCard({ data, preview = false }: { data: SalamKaut; prev
         </button>
       ) : (
         <div className="mt-4 animate-fade">
-          <div className="mx-auto grid aspect-square w-full max-w-[17rem] place-items-center rounded-2xl bg-white p-3 shadow-[0_0_0_1px_rgb(44_70_54/0.12)]">
+          <div className="mx-auto grid aspect-square w-full max-w-[17rem] place-items-center rounded-2xl bg-white p-3 shadow-[0_0_0_1px_rgb(128_0_32/0.14)]">
             {data.qrSrc ? (
               // eslint-disable-next-line @next/next/no-img-element -- user-supplied QR, served from our own API
               <img src={data.qrSrc} alt="DuitNow QR" className="h-full w-full object-contain" />

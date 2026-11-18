@@ -14,29 +14,34 @@ Phones are the only target. Design at **375 px** first, verify at 390 and 430.
 - Works one-handed and when the guest is holding a drink.
 - Must still render acceptably if opened on a desktop (centre a max-width ~480 px column), but never design for it.
 
-## Theme: Forest green + burgundy (restrained)
+## Theme: Burgundy `#800020` on blush paper (D34)
 
-Base is warm paper. **Forest green** is the main brand colour (type, primary buttons). **Burgundy `#800020`** (the user's chosen colour) is the signature accent, used sparingly for the date, small ornaments, wish highlights, the thank-you moment, and destructive confirmations. Together they read as "forest and wine" — rich, not loud. Avoid neon/minty greens and "wellness app" vibes.
+Base is a warm blush-ivory paper. **Burgundy `#800020`** (the user's colour) is the brand colour: primary buttons, headings, the welcome arch. A dusty rose and a blush support it, and **antique gold** appears only as tiny ornaments (stars, flower centres). It should read as "wine and blossom": rich, not loud, not pink-candy.
 
 ### Colour tokens
 
+Token names are kept from the first (forest) theme so components did not need renaming. `forest` now means the primary burgundy, `moss` the dusty rose, `sage` the blush.
+
 | Token | Hex | Use |
 |---|---|---|
-| `paper` | `#F3EEE3` | Page background (warm off-white, never pure white) |
-| `paper-deep` | `#E9E2D3` | Cards, dividers |
-| `ink` | `#1E2A22` | Body text (green-black, not pure black) |
-| `forest` | `#2C4636` | Primary buttons, headings, key surfaces |
-| `moss` | `#5F7550` | Secondary accents, icons |
-| `sage` | `#A8B79B` | Subtle fills, borders, disabled (not for body text) |
-| `wine` | `#800020` | **Accent (user-specified).** Date, ornaments, highlights, errors/delete |
+| `paper` | `#FBF4F1` | Page background (blush ivory, never pure white) |
+| `paper-deep` | `#F2E4E1` | Cards, dividers |
+| `ink` | `#2B1519` | Body text (burgundy-black, not pure black) |
+| `ink-soft` | `#5C4247` | Secondary text (AA on paper) |
+| `forest` | `#800020` | Primary buttons, headings, key surfaces |
+| `forest-deep` | `#5E0018` | Pressed state |
+| `moss` | `#A04A60` | Secondary accents, small labels (AA on paper) |
+| `sage` | `#E5C2C8` | Subtle fills, disabled tiles (not for text) |
+| `wine` | `#800020` | Errors, delete, small accents (same hue as primary) |
+| `gold` | `#B8914F` | Decorative only (stars, flower centres). Never for text: it fails contrast |
 
 Rules:
-- Proportion guide: ~70 % paper, ~20 % forest, ≤ 10 % wine. Wine never covers large areas.
-- Max **one** strong green surface per screen.
-- Text contrast ≥ WCAG AA. `wine` and `forest` on `paper` pass; do not use `sage` or `moss` for small body text.
-- Errors use `wine` **plus** an icon and text (never colour alone).
+- Proportion guide: ~75 % paper, ~20 % burgundy, a little rose and gold.
+- Max **one** strong burgundy surface per screen (the Share card on Home, the arch on Welcome).
+- Text contrast >= WCAG AA. Do not use `sage` or `gold` for text.
+- Errors use burgundy **plus** an icon and text (never colour alone).
 - Dark mode: **not needed.**
-- The disposable-camera date stamp keeps a classic film **orange** only inside the filtered photo; it is not part of the UI palette.
+- The disposable-camera date stamp keeps a classic film **orange** only inside the filtered photo.
 
 ## Typography
 
@@ -48,9 +53,9 @@ Rules:
 
 ## Glassmorphism, used with discipline (decision D28)
 
-The base look is **frosted glass over a painted forest backdrop**. Inspiration: Malaysian wedding-gallery apps (soft watercolour scenery, frosted cream cards, floating pill nav). We borrow the *ideas* only; nothing copied from those products or couples.
+The base look is **frosted glass over a blossom backdrop**. Inspiration: Malaysian wedding-gallery apps (soft watercolour scenery, frosted cream cards, floating pill nav). We borrow the *ideas* only; nothing copied from those products or couples.
 
-- **Backdrop:** `public/art/forest-backdrop.jpg` (watercolour ferns/eucalyptus in forest + sage with a few burgundy berries; centre left blank for content). One fixed layer (`.app-backdrop`) washed with 30 % paper. Replace the file to change the look; keep it ≤ ~400 KB. Glass is meaningless without a backdrop, so do not remove it.
+- **Backdrop:** soft blush gradients plus two corner clusters of blossoms, leaves and gold stars drawn as SVG (`src/components/Florals.tsx`, inside the fixed `.app-backdrop` layer). **Animation is deliberately tiny:** each cluster sways about 2 degrees over 9-11 s, each bloom breathes about 4 %, the stars twinkle. Transform/opacity only, and `prefers-reduced-motion` stops it. Glass is meaningless without a backdrop, so do not remove it.
 - **Glass utilities** (in `globals.css`): `.glass` (cards, ~66 % cream, blur 16 px) and `.glass-strong` (nav bar, header, sheets, ~82 % cream, blur 18 px). Both have an opaque fallback for browsers without `backdrop-filter` and for `prefers-reduced-transparency`.
 - **Where glass IS used (level "A"):** bottom nav bar, sticky page header, bottom sheets, welcome card, home hero card + action cards, language toggle, wish compose card, upload picker cards and sticky action bar.
 - **Where it is NOT used:** gallery tiles, wish notes, the photo viewer, admin sections. Those stay opaque "paper prints". Reasons: blur over scrolling photos is slow on mid-range Android and in WhatsApp/Instagram in-app browsers, and it hurts legibility for older guests.
@@ -62,8 +67,8 @@ The base look is **frosted glass over a painted forest backdrop**. Inspiration: 
 - **Mobile first** at 375 px; thumb-reachable primary action at the bottom.
 - **One primary action per screen.** Large tap targets (min 48 px). Old-person-proof.
 - **Gallery:** masonry/column layout that respects original aspect ratios; slight gutter variation is OK. Tap → full-screen viewer with swipe and close. Show uploader's name small, in the serif italic.
-- **Floating bottom bar** (`BottomNav`): Gallery | big forest `+` (Share a moment; becomes Home when uploads are closed) | Wishes. Shown on Home, Gallery and Wishes. The staff button lifts above it on those pages.
-- **Stats strip** on Home: photos / guests / wishes (guests = distinct anonymous tokens that shared something visible).
+- **Floating bottom bar** (`BottomNav`): Gallery | big forest `+` (Share a moment; becomes Home when uploads are closed) | Wishes. Shown on Gallery and Wishes (not Home: the Home cards are the menu, see D33). The staff button lifts above it on those pages.
+- **No stats strip** (D35): showing small counts early in the day makes a quiet wedding look empty. Counts still exist in settings for the admin page.
 - **Cards** look like paper prints: subtle warm shadow, slight border, optional tiny rotation (≤ 1.5°) on a few items — don't overdo it.
 - **Buttons:** solid `forest` with `paper` text, generous padding, soft radius (10–14 px). No gradient buttons.
 - **Icons:** a single consistent line set (e.g., Lucide) at consistent stroke width.
@@ -78,7 +83,7 @@ The base look is **frosted glass over a painted forest backdrop**. Inspiration: 
 ## Copy and tone
 
 - Warm, concrete, a bit playful. Written like the couple talks.
-- **Bilingual: English + Bahasa Melayu**, with a visible EN | BM toggle on the welcome screen and in the header. Provide full translations for every string (no half-translated screens). Default to the browser language; remember the choice. Keep BM natural and warm (not stiff, not machine-literal). Examples (placeholders — refine with the couple):
+- **Bilingual: English + Bahasa Melayu**, with a visible EN | BM toggle on the welcome screen and in the header. Provide full translations for every string (no half-translated screens). Default to English; remember the guest's choice (D34). Keep BM natural and warm (not stiff, not machine-literal). Examples (placeholders — refine with the couple):
 
 | Key | English | Bahasa Melayu |
 |---|---|---|
@@ -97,7 +102,7 @@ The base look is **frosted glass over a painted forest backdrop**. Inspiration: 
 
 ## Anti-slop checklist (must pass)
 
-- [ ] No purple/blue gradient hero, no floating blobs. Glass only over the painted backdrop and only on the surfaces listed above (see D28)
+- [ ] No purple/blue gradient hero, no floating blobs. Glass only over the blossom backdrop and only on the surfaces listed above (see D28)
 - [ ] No stock phrases ("Capture every moment", "Seamless", "Elevate")
 - [ ] No emoji used as icons or decoration
 - [ ] Not a uniform grid of identical rounded cards with the same shadow

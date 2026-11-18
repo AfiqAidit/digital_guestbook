@@ -45,7 +45,7 @@ export function Sheet({
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
-        className="relative z-10 max-h-[92dvh] w-full max-w-[480px] animate-sheet overflow-y-auto glass-strong rounded-t-[1.75rem] border-b-0 bg-paper/90 px-6 pt-3 pb-safe shadow-[0_-20px_60px_-20px_rgb(30_42_34/0.55)]"
+        className="relative z-10 max-h-[92dvh] w-full max-w-[480px] animate-sheet overflow-y-auto glass-strong rounded-t-[1.75rem] border-b-0 bg-paper/90 px-6 pt-3 pb-safe shadow-[0_-20px_60px_-20px_rgb(43_21_25/0.5)]"
       >
         <div className="mx-auto mb-4 h-1 w-10 rounded-full bg-forest/20" aria-hidden />
         <div className="mb-3 flex items-start justify-between gap-4">

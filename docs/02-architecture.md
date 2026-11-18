@@ -11,7 +11,7 @@
 | File storage | Supabase Storage (public bucket for approved images) | Same project, simple |
 | Staff auth | Own passcode check + signed httpOnly cookie (`jose` JWT) — **no Supabase Auth, no accounts** | Guests never log in; staff use a hidden 5-tap popup. See "Staff access" below |
 | Realtime | Supabase Realtime on `photos` and `wishes` | Live-updating gallery on phones |
-| i18n | Simple dictionary (`en`, `ms`) via `next-intl` or a tiny custom helper | English + Bahasa Melayu toggle; default from browser language, remembered in `localStorage` |
+| i18n | Simple dictionary (`en`, `ms`) via `next-intl` or a tiny custom helper | English + Bahasa Melayu toggle; English by default, the guest's choice remembered in a cookie |
 | Hosting | Vercel (Hobby, free) | Zero-config Next.js |
 | Image processing | Client-side: `browser-image-compression`, `heic2any` (or `heic-to`) | Keeps server free and storage small |
 | QR generation | `qrcode` npm package | For the printable table card (and an in-app "share this site" QR) |

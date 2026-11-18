@@ -100,7 +100,7 @@ function Editor({
             maxEdge={760}
             label={t("style.title")}
             box={`calc(${PREVIEW_BOX} - 1.5rem)`}
-            className="rounded-md shadow-[0_10px_30px_-10px_rgb(20_30_24/0.6)]"
+            className="rounded-md shadow-[0_10px_30px_-10px_rgb(43_21_25/0.6)]"
           />
         ) : (
           <div className="skeleton h-full w-3/4 rounded-xl" />
