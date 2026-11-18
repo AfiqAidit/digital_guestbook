@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { AlertCircle, Camera, Check, ImagePlus, Loader2, RotateCw, Sparkles, X } from "lucide-react";
+import { AlertCircle, ArrowRight, Camera, Check, ImagePlus, Loader2, RotateCw, Sparkles, X } from "lucide-react";
 import { PageHeader } from "@/components/PageHeader";
 import { PhotoStyleSheet } from "@/components/PhotoStyleSheet";
 import { Sprig } from "@/components/Sprig";
@@ -276,6 +276,9 @@ export default function UploadPage() {
           <div className="mt-9 grid w-full max-w-[18rem] gap-3">
             <Link href="/gallery" className="btn btn-primary">{t("upload.toGallery")}</Link>
             <button type="button" onClick={reset} className="btn btn-quiet">{t("upload.addMore")}</button>
+            <Link href="/wishes" className="mt-1 inline-flex min-h-12 items-center justify-center gap-1.5 font-semibold text-wine underline underline-offset-4">
+              {t("upload.nextWish")} <ArrowRight size={18} />
+            </Link>
           </div>
         </section>
       </main>
@@ -313,27 +316,58 @@ export default function UploadPage() {
           }}
         />
 
-        {!sending && (
-          <div className="grid gap-3">
+        {!sending && items.length === 0 && (
+          <>
+            <div className="grid gap-3">
+              <button
+                type="button"
+                onClick={() => libraryInput.current?.click()}
+                className="glass flex min-h-[6.5rem] items-center gap-4 rounded-3xl p-5 text-left active:scale-[0.99]"
+              >
+                <span className="grid size-14 shrink-0 place-items-center rounded-full bg-forest text-paper">
+                  <ImagePlus size={26} />
+                </span>
+                <span>
+                  <span className="block font-display text-[1.6rem] leading-none font-semibold text-forest">{t("upload.pick")}</span>
+                  <span className="mt-1.5 block text-[0.95rem] leading-snug text-ink-soft">{t("upload.pickSub")}</span>
+                </span>
+              </button>
+              <button
+                type="button"
+                onClick={() => cameraInput.current?.click()}
+                className="glass flex min-h-[6.5rem] items-center gap-4 rounded-3xl p-5 text-left active:scale-[0.99]"
+              >
+                <span className="grid size-14 shrink-0 place-items-center rounded-full bg-forest/10 text-forest">
+                  <Camera size={26} />
+                </span>
+                <span>
+                  <span className="block font-display text-[1.6rem] leading-none font-semibold text-forest">{t("upload.camera")}</span>
+                  <span className="mt-1.5 block text-[0.95rem] leading-snug text-ink-soft">{t("upload.cameraSub")}</span>
+                </span>
+              </button>
+            </div>
+            <p className="mt-5 px-1 text-center text-[0.95rem] leading-snug text-ink-soft">{t("upload.hint")}</p>
+          </>
+        )}
+
+        {/* Once photos are chosen, adding more is a quiet pair of buttons so the previews get the room. */}
+        {!sending && items.length > 0 && (
+          <div className="grid grid-cols-2 gap-3">
             <button
               type="button"
               onClick={() => libraryInput.current?.click()}
               disabled={items.length >= MAX_BATCH}
-              className="glass flex min-h-[7.5rem] flex-col items-start justify-between rounded-3xl p-5 text-left active:scale-[0.99] disabled:opacity-50"
+              className="btn btn-quiet glass min-h-14 px-3 text-[0.98rem] disabled:opacity-50"
             >
-              <ImagePlus size={28} className="text-forest" />
-              <span>
-                <span className="block font-display text-[1.6rem] leading-none font-semibold text-forest">{t("upload.pick")}</span>
-                <span className="mt-1.5 block text-[0.95rem] text-ink-soft">{t("upload.pickSub")}</span>
-              </span>
+              <ImagePlus size={20} /> {t("upload.addPhotos")}
             </button>
             <button
               type="button"
               onClick={() => cameraInput.current?.click()}
               disabled={items.length >= MAX_BATCH}
-              className="btn btn-quiet glass justify-start"
+              className="btn btn-quiet glass min-h-14 px-3 text-[0.98rem] disabled:opacity-50"
             >
-              <Camera size={22} /> {t("upload.camera")}
+              <Camera size={20} /> {t("upload.camera")}
             </button>
           </div>
         )}

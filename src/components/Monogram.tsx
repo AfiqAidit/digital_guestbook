@@ -1,27 +1,55 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
 import { EVENT } from "@/lib/event";
 import { useStaff } from "@/lib/staff";
 
 const TAPS_NEEDED = 5;
 const WINDOW_MS = 3000;
+/** After the last tap, wait this long before treating it as a plain "go back" tap. */
+const SETTLE_MS = 450;
 
 /**
  * The couple's A & P monogram. It is also the hidden door to staff access:
  * tap it 5 times within ~3 seconds. There is deliberately no visual hint for guests.
  * (It's obscurity, not security. The passcode check on the server is the real lock.)
  */
-export function Monogram({ size = 84, tone = "paper" }: { size?: number; tone?: "paper" | "forest" }) {
+export function Monogram({
+  size = 84,
+  tone = "paper",
+  to,
+  label,
+}: {
+  size?: number;
+  tone?: "paper" | "forest";
+  /** Where a plain tap goes (e.g. back to the welcome page). Rapid taps still open staff access. */
+  to?: string;
+  label?: string;
+}) {
   const { openSheet, session } = useStaff();
+  const router = useRouter();
   const taps = useRef<number[]>([]);
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => () => {
+    if (timer.current) clearTimeout(timer.current);
+  }, []);
 
   function onTap() {
     const now = Date.now();
     taps.current = [...taps.current.filter((t) => now - t < WINDOW_MS), now];
+    if (timer.current) clearTimeout(timer.current);
     if (taps.current.length >= TAPS_NEEDED) {
       taps.current = [];
       if (!session) openSheet();
+      return;
+    }
+    if (to) {
+      timer.current = setTimeout(() => {
+        taps.current = [];
+        router.push(to);
+      }, SETTLE_MS);
     }
   }
 
@@ -32,8 +60,9 @@ export function Monogram({ size = 84, tone = "paper" }: { size?: number; tone?: 
 
   return (
     <div
-      role="img"
-      aria-label={`${EVENT.initials[0]} & ${EVENT.initials[1]}`}
+      role={to ? "button" : "img"}
+      tabIndex={to ? 0 : undefined}
+      aria-label={label ?? `${EVENT.initials[0]} & ${EVENT.initials[1]}`}
       onClick={onTap}
       className="select-none [touch-action:manipulation]"
       style={{ width: size, height: size }}

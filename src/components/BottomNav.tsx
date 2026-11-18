@@ -6,8 +6,8 @@ import { BookHeart, GalleryVerticalEnd, House, Plus } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 import { useSettings } from "@/lib/settings";
 
-/** Pages that show the bottom bar. (The staff button lifts itself above it on these.) */
-export const NAV_PATHS = ["/home", "/gallery", "/wishes"];
+/** Pages that show the bottom bar. Home has none (its cards already are the menu). The staff button lifts above it on these. */
+export const NAV_PATHS = ["/gallery", "/wishes"];
 
 /**
  * Floating glass bar: Gallery | big + | Wishes. The + is the one thing most guests came to do,
@@ -25,7 +25,7 @@ export function BottomNav() {
       <Link
         href={href}
         aria-current={active ? "page" : undefined}
-        className={`flex min-h-14 min-w-[6.5rem] flex-col items-center justify-center gap-0.5 justify-self-center rounded-full px-4 text-[0.68rem] font-semibold tracking-[0.14em] uppercase transition-colors ${
+        className={`flex min-h-14 min-w-[6.5rem] flex-col items-center justify-center gap-0.5 justify-self-center rounded-full px-4 text-[0.78rem] font-semibold tracking-[0.1em] uppercase transition-colors ${
           active ? "bg-forest text-paper" : "text-forest active:bg-forest/10"
         }`}
       >
@@ -48,7 +48,7 @@ export function BottomNav() {
           <Link
             href={uploadsOpen ? "/upload" : "/home"}
             aria-label={uploadsOpen ? t("upload.title") : t("nav.home")}
-            className="absolute top-0 left-1/2 grid size-16 -translate-x-1/2 -translate-y-[38%] place-items-center rounded-full bg-forest text-paper shadow-[0_12px_26px_-8px_rgb(33_53_40/0.75)] ring-[5px] ring-[#f6f2e8] transition-transform active:scale-95 active:bg-forest-deep"
+            className="absolute top-0 left-1/2 grid size-16 -translate-x-1/2 -translate-y-[38%] place-items-center rounded-full bg-forest text-paper shadow-[0_12px_26px_-8px_rgb(94_0_24/0.55)] ring-[5px] ring-[#fbf4f1] transition-transform active:scale-95 active:bg-forest-deep"
           >
             {uploadsOpen ? <Plus size={32} strokeWidth={2.2} /> : <House size={28} />}
           </Link>

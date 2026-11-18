@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
-import { Eye, EyeOff, Send, Trash2 } from "lucide-react";
+import { ArrowRight, Eye, EyeOff, Send, Trash2 } from "lucide-react";
 import { BottomNav } from "@/components/BottomNav";
 import { PageHeader } from "@/components/PageHeader";
 import { Sprig } from "@/components/Sprig";
@@ -113,7 +113,7 @@ export default function WishesPage() {
                 placeholder={t("wishes.placeholder")}
                 className="field mt-3 min-h-[9rem] resize-none py-3 leading-snug"
               />
-              <div className="mt-1.5 flex items-center justify-between text-[0.85rem] text-ink-soft">
+              <div className="mt-1.5 flex items-center justify-between text-[0.95rem] text-ink-soft">
                 <span aria-live="polite" className={left < 40 ? "font-medium text-wine" : ""}>
                   {t("wishes.left", { n: left })}
                 </span>
@@ -125,7 +125,19 @@ export default function WishesPage() {
           )}
 
           <div aria-live="polite">
-            {result === "sent" && <p className="mt-3 text-[0.98rem] font-medium text-forest">{t("wishes.sent")}</p>}
+            {result === "sent" && (
+              <div className="mt-3">
+                <p className="text-[0.98rem] font-medium text-forest">{t("wishes.sent")}</p>
+                <div className="mt-2 grid grid-cols-2 gap-2">
+                  <Link href="/upload" className="btn btn-quiet min-h-12 px-3 text-[0.95rem]">
+                    {t("home.share")}
+                  </Link>
+                  <Link href="/gallery" className="btn btn-quiet min-h-12 gap-1.5 px-3 text-[0.95rem]">
+                    {t("home.gallery")} <ArrowRight size={16} />
+                  </Link>
+                </div>
+              </div>
+            )}
             {result === "review" && <p className="mt-3 text-[0.98rem] font-medium text-forest">{t("wishes.sentReview")}</p>}
             {result === "limit" && <p className="mt-3 text-[0.98rem] font-medium text-wine">{t("wishes.limit")}</p>}
             {result === "error" && <p className="mt-3 text-[0.98rem] font-medium text-wine">{t("common.error")}</p>}
@@ -154,7 +166,7 @@ export default function WishesPage() {
                 <p className="pt-3 font-display text-[1.28rem] leading-[1.3] break-words whitespace-pre-line text-ink">
                   {w.message}
                 </p>
-                <p className="mt-3 text-[0.78rem] font-semibold tracking-[0.18em] text-moss uppercase">{w.guestName}</p>
+                <p className="mt-3 text-[0.85rem] font-semibold tracking-[0.14em] text-moss uppercase">{w.guestName}</p>
 
                 {adminUi && (
                   <div className="mt-3 flex items-center gap-2 border-t border-forest/10 pt-3">
