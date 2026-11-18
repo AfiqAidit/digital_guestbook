@@ -5,7 +5,7 @@
  * Nothing here grants power: every /api/admin/* route re-checks the signed cookie.
  */
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
-import type { StaffSession } from "@/lib/types";
+import type { Role, StaffSession } from "@/lib/types";
 
 const MODE_KEY = "gb_admin_mode";
 
@@ -20,7 +20,8 @@ type Ctx = {
   closeSheet: () => void;
   menuOpen: boolean; // the floating-button menu
   setMenuOpen: (o: boolean) => void;
-  login: (passcode: string, remark: string) => Promise<boolean>;
+  /** Resolves to the role on success, null on a wrong passcode or error. */
+  login: (passcode: string) => Promise<Role | null>;
   logout: () => Promise<void>;
   refresh: () => Promise<void>;
 };
@@ -66,19 +67,20 @@ export function StaffProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const login = useCallback(
-    async (passcode: string, remark: string) => {
+    async (passcode: string): Promise<Role | null> => {
       try {
         const res = await fetch("/api/admin/login", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ passcode, remark }),
+          body: JSON.stringify({ passcode }),
         });
-        if (!res.ok) return false;
+        if (!res.ok) return null;
+        const data = (await res.json()) as { role: Role };
         await refresh();
         setAdminMode(true);
-        return true;
+        return data.role;
       } catch {
-        return false;
+        return null;
       }
     },
     [refresh, setAdminMode],

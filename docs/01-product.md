@@ -52,8 +52,8 @@ Notes:
 
 ### Staff access UX
 
-1. The logo/monogram on the welcome and home screens is the hidden door. **5 taps within ~3 seconds** opens a bottom-sheet popup titled neutrally (e.g. "Staff access") — no hint on the guest UI that it exists.
-2. Popup fields: **Passcode** and **Remark** (free text: who you are / why, e.g. "Kak Ana – moderator"). The remark is saved in an audit log. *(Assumption: "remarks" meant this. Confirm with the user.)*
+1. The logo/monogram on the **welcome screen** is the hidden door. **5 taps within ~3 seconds** opens a bottom-sheet popup titled neutrally (e.g. "Staff access") — no hint on the guest UI that it exists.
+2. Popup has one field: **Passcode** (no name or remark, D38). On success it says "Welcome back loveee ❤️" (super admin) or "Welcome back" (host) for a moment, then closes.
 3. Wrong passcode: neutral error, lockout after 5 tries (see architecture).
 4. Success: the popup closes and a small **floating admin button** appears (host and super admin both).
 5. **Admin mode toggle:** tapping the floating button opens the admin panel, which includes an **Admin mode ON/OFF** switch. ON shows Hide/Delete controls on photos and wishes. OFF shows the app exactly as guests see it (useful for checking). Persisted for the session.
@@ -78,7 +78,7 @@ Notes:
 
 ## Host journey
 
-1. Hidden 5-tap on the logo → passcode + remark → floating admin button (see "Staff access UX"). `/admin` also works if opened directly (shows the same popup when not logged in), but is never linked.
+1. Hidden 5-tap on the logo (welcome screen only) → passcode → floating admin button (see "Staff access UX"). `/admin` also works if opened directly (shows the same popup when not logged in), but is never linked.
 2. **Admin panel** (phone layout, bottom sheet / full-screen page): counts (photos, wishes, guests), **Admin mode ON/OFF**, and (super admin) **Uploads ON/OFF** + moderation mode.
 3. **Photos**: grid with Hide / Delete / Restore, filter by status.
 4. **Wishes**: list with Hide / Delete.

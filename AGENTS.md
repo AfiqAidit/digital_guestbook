@@ -48,7 +48,7 @@ npm run dev                    # http://localhost:3000 (or the next free port)
 npm run lint && npx tsc --noEmit && npm run build   # all three must pass before you call a task done
 ```
 
-Open it at a phone width (browser devtools, 390 px). Photos/wishes/settings are stored in `.data/` (git-ignored). Delete that folder to reset. Staff access: tap the **A&P monogram 5 times** on the welcome or home screen.
+Open it at a phone width (browser devtools, 390 px). Photos/wishes/settings are stored in `.data/` (git-ignored). Delete that folder to reset. Staff access: tap the **A&P monogram 5 times** on the **welcome screen only**. On Home, one tap on it goes straight back to the welcome screen.
 
 ## IMPORTANT: this is a very new Next.js
 
@@ -66,7 +66,7 @@ The installed Next.js (see `package.json`, 16.x) is newer than most models' trai
 | `src/lib/photo-style.ts` | Canvas Looks (per-pixel) + Frames (print / torn paper / arch) baked in before upload |
 | `src/components/BottomNav.tsx`, `PhotoStyleSheet.tsx` | Floating glass nav; the Look/Frame editor sheet |
 | `src/app/api/**` | Route handlers (public: photos, wishes, settings, files; staff: `admin/*`) |
-| `src/components/Monogram.tsx` | The A&P logo **and the hidden 5-tap staff trigger** |
+| `src/components/Monogram.tsx` | The A&P logo. On the welcome screen it is **the hidden 5-tap staff trigger**; on Home it is a plain "back to welcome" button |
 | `src/app/globals.css` | Design tokens (`@theme`), backdrop (`.app-backdrop`), paper grain, `.glass` / `.glass-strong`, `.btn` / `.field` / `.print` classes |
 | `src/lib/music.tsx`, `src/components/SoundButton.tsx` | Optional music (file at `public/audio/theme.mp3`, not in the repo, off by default) and its speaker button |
 | `src/components/Florals.tsx`, `Petals.tsx`, `Couple.tsx` | Animated blossom backdrop, drifting petals (Home only), and the drawn couple (all SVG/CSS, no image files) |

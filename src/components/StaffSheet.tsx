@@ -7,14 +7,14 @@ import { useI18n } from "@/lib/i18n";
 import { useStaff } from "@/lib/staff";
 
 /**
- * The hidden "staff access" popup (opened by tapping the monogram 5 times).
+ * The hidden "staff access" popup (opened by tapping the monogram 5 times on the welcome screen).
  * Copy is deliberately friendly and bilingual: if a guest opens it by accident, it must not scare them.
  */
 export function StaffSheet() {
   const { t } = useI18n();
   const { sheetOpen, closeSheet, login } = useStaff();
   const [passcode, setPasscode] = useState("");
-  const [remark, setRemark] = useState("");
+  const [welcome, setWelcome] = useState<string | null>(null);
   const [show, setShow] = useState(false);
   const [error, setError] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -28,7 +28,7 @@ export function StaffSheet() {
     // reset when closed
     /* eslint-disable react-hooks/set-state-in-effect -- clearing form state when the sheet closes */
     setPasscode("");
-    setRemark("");
+    setWelcome(null);
     setShow(false);
     setError(false);
     /* eslint-enable react-hooks/set-state-in-effect */
@@ -39,10 +39,13 @@ export function StaffSheet() {
     if (!passcode || busy) return;
     setBusy(true);
     setError(false);
-    const ok = await login(passcode, remark);
+    const role = await login(passcode);
     setBusy(false);
-    if (ok) closeSheet();
-    else {
+    if (role) {
+      // a short hello, then the sheet closes by itself
+      setWelcome(role === "super_admin" ? "Welcome back loveee ❤️" : "Welcome back");
+      setTimeout(closeSheet, 1300);
+    } else {
       setError(true);
       setPasscode("");
       passRef.current?.focus();
@@ -56,6 +59,12 @@ export function StaffSheet() {
       title={t("staff.title")}
       closeLabel={t("staff.close")}
     >
+      {welcome ? (
+        <p role="status" className="py-10 text-center font-display text-[2rem] leading-tight font-semibold text-forest">
+          {welcome}
+        </p>
+      ) : (
+        <>
       <p className="mb-5 text-[1.02rem] text-ink-soft">{t("staff.body")}</p>
 
       <form onSubmit={submit} className="space-y-4" autoComplete="off">
@@ -91,21 +100,6 @@ export function StaffSheet() {
           </div>
         </div>
 
-        <div>
-          <label htmlFor="staff-remark" className="mb-1.5 block text-sm font-semibold text-forest">
-            {t("staff.remark")}
-          </label>
-          <input
-            id="staff-remark"
-            className="field"
-            value={remark}
-            onChange={(e) => setRemark(e.target.value)}
-            placeholder={t("staff.remarkPlaceholder")}
-            maxLength={80}
-            autoComplete="off"
-          />
-        </div>
-
         {error && (
           <p id="staff-err" role="alert" className="text-[0.95rem] font-medium text-wine">
             {t("staff.wrong")}
@@ -116,6 +110,8 @@ export function StaffSheet() {
           {t("staff.unlock")}
         </button>
       </form>
+        </>
+      )}
     </Sheet>
   );
 }

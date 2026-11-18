@@ -191,8 +191,8 @@ When moving to Supabase: re-implement `store.ts` only (Postgres rows + Storage o
 **Do we need a DB account to validate? No.** A server-checked passcode is enough for one wedding. The popup does not need email/password.
 
 Flow:
-1. Client: 5 taps on the logo within ~3 s opens the "Staff access" sheet (fields: passcode, remark).
-2. Client `POST /api/admin/login { passcode, remark }`.
+1. Client: 5 taps on the logo within ~3 s opens the "Staff access" sheet (one field: passcode; the optional `remark` column stays in the schema but the UI no longer sends one).
+2. Client `POST /api/admin/login { passcode }`.
 3. Server (never client):
    - Rate limit: max **5 failed attempts / 15 min per IP**, plus a global slow-down after 20 failures. Responds with the same neutral error for wrong passcode vs locked out vs unknown.
    - Compare against `HOST_PASSCODE` / `SUPER_ADMIN_PASSCODE` from env vars using a **constant-time** comparison (`crypto.timingSafeEqual` on hashes). Check super admin first.

@@ -64,22 +64,32 @@ export function Couple({ className = "" }: { className?: string }) {
         <rect x="100" y="106" width="14" height="46" rx="7" fill={WHITE} stroke={EDGE} strokeWidth="1.5" transform="rotate(-24 107 106)" />
         <circle cx="120" cy="150" r="6" fill={SKIN} />
         {/* head */}
-        <circle cx="54" cy="68" r="4.5" fill={SKIN} />
-        <circle cx="102" cy="68" r="4.5" fill={SKIN} />
-        <circle cx="78" cy="66" r="24" fill={SKIN} />
-        <Face cx={78} cy={68} />
-        {/* songkok */}
-        <path d="M54 50 L56 28 Q78 20 100 28 L102 50 Q78 43 54 50 Z" fill={INK} />
-        <path d="M56 46 Q78 40 100 46" stroke={GOLD} strokeWidth="1.6" fill="none" strokeLinecap="round" opacity="0.8" />
+        <circle cx="54" cy="69" r="4" fill={SKIN} />
+        <circle cx="102" cy="69" r="4" fill={SKIN} />
+        {/* hair: a dark rim behind the face so he is clearly not bald */}
+        <circle cx="78" cy="64" r="26.5" fill={INK} />
+        <circle cx="78" cy="67" r="23" fill={SKIN} />
+        {/* sideburns and a short fringe */}
+        <rect x="54.5" y="56" width="4" height="13" rx="2" fill={INK} />
+        <rect x="97.5" y="56" width="4" height="13" rx="2" fill={INK} />
+        <path d="M58 53 Q66 60 78 56 Q90 60 98 53 L98 48 L58 48 Z" fill={INK} />
+        <Face cx={78} cy={69} />
+        {/* songkok: sits low on the head */}
+        <path d="M52 54 L55 27 Q78 19 101 27 L104 54 Q78 47 52 54 Z" fill={INK} />
+        <path d="M54.5 50 Q78 43.5 101.5 50" stroke={GOLD} strokeWidth="1.6" fill="none" strokeLinecap="round" opacity="0.8" />
+        <path d="M60 30 Q78 25 96 30" stroke="#4a2a30" strokeWidth="2" fill="none" strokeLinecap="round" opacity="0.6" />
       </g>
 
       {/* ---------------- bride ---------------- */}
       <g className="cp-bob" style={{ animationDelay: "-1.6s" }}>
+        {/* shoes first, so the hem falls over them and she clearly stands on the ground */}
+        <ellipse cx="134" cy="234" rx="9" ry="5" fill={INK} />
+        <ellipse cx="160" cy="234" rx="9" ry="5" fill={INK} />
         {/* baju kurung */}
-        <path d="M120 122 Q120 108 134 106 L160 106 Q174 108 174 122 L184 228 Q147 238 110 228 Z" fill={WHITE} stroke={EDGE} strokeWidth="1.5" />
-        <path d="M111 223 Q147 233 183 223" stroke={GOLD} strokeWidth="2" strokeLinecap="round" fill="none" />
+        <path d="M120 122 Q120 108 134 106 L160 106 Q174 108 174 122 L184 222 Q147 232 110 222 Z" fill={WHITE} stroke={EDGE} strokeWidth="1.5" />
+        <path d="M111 217 Q147 227 183 217" stroke={GOLD} strokeWidth="2" strokeLinecap="round" fill="none" />
         {[130, 147, 164].map((x) => (
-          <circle key={x} cx={x} cy="214" r="1.8" fill={GOLD} opacity="0.85" />
+          <circle key={x} cx={x} cy="208" r="1.8" fill={GOLD} opacity="0.85" />
         ))}
         {/* left arm, reaching for his hand */}
         <rect x="112" y="108" width="14" height="46" rx="7" fill={WHITE} stroke={EDGE} strokeWidth="1.5" transform="rotate(18 119 108)" />

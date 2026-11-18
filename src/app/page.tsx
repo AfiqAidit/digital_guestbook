@@ -7,7 +7,7 @@ import { Couple } from "@/components/Couple";
 import { LanguageToggle } from "@/components/LanguageToggle";
 import { SoundButton } from "@/components/SoundButton";
 import { Monogram } from "@/components/Monogram";
-import { LeafDivider, Sprig } from "@/components/Sprig";
+import { LeafDivider } from "@/components/Sprig";
 import { EVENT, formatWeddingDate } from "@/lib/event";
 import { useGuest } from "@/lib/guest";
 import { useI18n } from "@/lib/i18n";
@@ -65,11 +65,6 @@ export default function Welcome() {
           </>
         ) : (
           <div className="relative flex aspect-[4/4.7] items-center justify-center overflow-hidden rounded-t-[999px] rounded-b-[1.6rem] bg-forest">
-            <Sprig className="pointer-events-none absolute -bottom-3 -left-5 w-28 rotate-[8deg] text-sage/40" />
-            <Sprig
-              flip
-              className="pointer-events-none absolute -right-5 -bottom-4 w-24 -rotate-[10deg] text-sage/30"
-            />
             <div className="absolute top-[9%] left-1/2 -translate-x-1/2 rounded-full bg-paper p-0.5 shadow-md">
               <Monogram size={44} tone="paper" />
             </div>
