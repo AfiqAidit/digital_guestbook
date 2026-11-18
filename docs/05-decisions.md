@@ -41,6 +41,7 @@
 | D37 | **The couple illustration is our own drawing** (`Couple.tsx`), and the groom waves every ~7 s. We do not copy or hotlink Kisandah's GIF: it is their template asset | Copyright; the look is replicated in spirit only |
 | D38 | **Staff access is simpler.** Staff popup has only a passcode (no name/remark); success shows "Welcome back loveee ❤️" for the super admin. The 5-tap door works on the **welcome screen only**; on Home, one tap on the monogram goes straight back to welcome (supersedes the 0.45 s settle rule in D33). Super-admin passcode set to the user's choice in `.env.local` (10 characters: weak by design, see D24, the lockout still applies). **Vercel needs the same env vars set separately** | User: no accounts, no names, a friendly greeting, admin only from the main screen |
 | D39 | **Music starts by itself** (volume 35 %, looped). If the browser blocks sound before a touch, it starts on the first tap anywhere (e.g. "Continue"). The speaker button mutes it, and a muted choice is remembered on that phone. Supersedes the "off by default" part of D36 (the venue-chaos risk is the user's call: ~150 phones may play at once). Couple art: groom now has hair under the songkok, bride has shoes; leaves removed from the Welcome arch | User feedback |
+| D40 | **Backdrop is now a real photo** (`public/bg/blossom.webp`) under a blush wash; the drawn, swaying blossoms and twinkling stars (`Florals.tsx`) are removed. Source photos should be licensed or self-made; the current ones were supplied by the user (check where they came from before launch) | User asked for photo flowers instead of moving drawings |
 | D22 | Keep-alive for the free Supabase project: Vercel daily cron → `/api/health`. Needs the Supabase and Vercel projects to exist first | Prevents the 1-week inactivity pause |
 | D18 | Hosting: Vercel, own `*.vercel.app` URL for now; buy a domain later | `afiqdev.vercel.app` is an existing separate project, so this app is a new Vercel project. Regenerate QR if the URL changes, so decide before printing |
 
@@ -81,3 +82,4 @@
 - 2026-11-18 — D36–D37 recorded (music button, own couple art with wave) — User asked for a wave and music — assistant
 - 2026-11-18 — D35 recorded (Home v3, captions, couple, petals) — User feedback round — assistant
 - 2026-11-16 — D28–D32 recorded (glassmorphism level A, generated backdrop, nav/stats/hero/frames scope) — User chose glass + features from reference screenshots — assistant
+- 2026-11-18 — D40 recorded (photo backdrop replaces drawn blossoms) — User supplied flower photos — assistant

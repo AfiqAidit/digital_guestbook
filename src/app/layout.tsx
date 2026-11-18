@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { cookies } from "next/headers";
 import { Caveat, Cormorant_Garamond, Instrument_Sans } from "next/font/google";
-import { Florals } from "@/components/Florals";
 import { Providers } from "@/components/Providers";
 import type { Lang } from "@/lib/i18n/dictionary";
 import { EVENT } from "@/lib/event";
@@ -53,9 +52,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body>
         <Providers initialLang={lang} initialSettings={initialSettings}>
           <div className="app-shell">
-            <div className="app-backdrop" aria-hidden>
-              <Florals />
-            </div>
+            <div className="app-backdrop" aria-hidden />
             {children}
           </div>
         </Providers>
